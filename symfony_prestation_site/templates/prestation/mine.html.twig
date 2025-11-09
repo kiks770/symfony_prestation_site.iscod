@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h1>Mes prestations</h1>
+<a href="{{ path('prestation_new') }}">Ajouter</a>
+<ul>
+{% for p in prestations %}
+<li>{{ p.titre }} - {{ p.remuneration }} €
+<a href="{{ path('prestation_edit', {id:p.id}) }}">Éditer</a>
+<form method="post" action="{{ path('prestation_delete', {id:p.id}) }}" style="display:inline" onsubmit="return confirm('Confirmer ?');">
+<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ p.id) }}">
+<button>Supprimer</button>
+</form>
+</li>
+{% else %}
+<li>Aucune prestation.</li>
+{% endfor %}
+</ul>
+{% endblock %}

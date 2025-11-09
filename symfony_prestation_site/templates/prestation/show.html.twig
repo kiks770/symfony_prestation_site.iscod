@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h1>{{ prestation.titre }}</h1>
+<p>{{ prestation.description }}</p>
+<p>Rémunération : {{ prestation.remuneration }} €</p>
+<p>Créée le {{ prestation.createdAt|date('d/m/Y H:i') }}</p>
+<a href="{{ path('prestation_index') }}">Retour</a>
+{% endblock %}

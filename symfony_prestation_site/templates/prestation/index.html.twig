@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h1>Prestations</h1>
+<table>
+<tr><th>ID</th><th>Titre</th><th>Rémunération</th><th>Auteur</th><th>Actions</th></tr>
+{% for p in prestations %}
+<tr>
+<td>{{ p.id }}</td>
+<td>{{ p.titre }}</td>
+<td>{{ p.remuneration }} €</td>
+<td>{{ p.user.username }}</td>
+<td>
+<a href="{{ path('prestation_show', {id:p.id}) }}">Voir</a>
+{% if app.user and app.user.id == p.user.id %}
+<a href="{{ path('prestation_edit', {id:p.id}) }}">Éditer</a>
+<form method="post" action="{{ path('prestation_delete', {id:p.id}) }}" style="display:inline" onsubmit="return confirm('Confirmer la suppression ?');">
+<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ p.id) }}">
+<button>Supprimer</button>
+</form>
+{% endif %}
+</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
